@@ -146,11 +146,14 @@ def create_community(
     db.flush()
     _set_skills(db, community, req.skills)
     db.add(CommunityMember(community_id=community.id, user_id=user.id, role="organizer"))
+<<<<<<< HEAD
     # Controlled organizer onboarding: a student who creates a community
     # becomes a platform organizer (still cannot grant roles to others).
     if user.role == "student":
         user.role = "organizer"
         db.add(user)
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     db.commit()
     community = get_community(db, community.id)
     saved = saved_community_ids(db, user.id)

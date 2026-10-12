@@ -25,7 +25,11 @@ def test_duplicate_username_rejected(client, db_session):
 
 
 def test_duplicate_community_membership_rejected(client, db_session):
+<<<<<<< HEAD
     user = register(client, "olivia")
+=======
+    user = register(client, "olivia", role="organizer")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     college = make_college(client, user["access_token"])
     community = make_community(client, user["access_token"], college["id"])
     db_session.add(CommunityMember(community_id=community["id"], user_id=user["user"]["id"], role="member"))
@@ -44,7 +48,11 @@ def test_unique_skill_names(client, db_session):
 
 
 def test_community_requires_existing_college(client):
+<<<<<<< HEAD
     user = register(client, "olivia")
+=======
+    user = register(client, "olivia", role="organizer")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     resp = client.post(
         "/api/v1/communities",
         json={"name": "Ghost Club", "college_id": 999},
@@ -54,7 +62,11 @@ def test_community_requires_existing_college(client):
 
 
 def test_delete_community_removes_membership(client, db_session):
+<<<<<<< HEAD
     user = register(client, "olivia")
+=======
+    user = register(client, "olivia", role="organizer")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     college = make_college(client, user["access_token"])
     community = make_community(client, user["access_token"], college["id"])
     assert db_session.query(CommunityMember).count() == 1

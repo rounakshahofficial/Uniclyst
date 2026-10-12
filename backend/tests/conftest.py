@@ -53,17 +53,25 @@ def db_session():
         db.close()
 
 
+<<<<<<< HEAD
 def register(client: TestClient, username="alice", email=None, **extra):
     """Public registration — always creates a student account.
 
     `extra` is forwarded to the payload so tests can attempt illegal fields
     (e.g. role="reviewer") and assert they are rejected.
     """
+=======
+def register(client: TestClient, username="alice", role="organizer", email=None, **extra):
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     payload = {
         "username": username,
         "email": email or f"{username}@example.com",
         "password": "supersecret1",
         "full_name": f"Test {username.title()}",
+<<<<<<< HEAD
+=======
+        "role": role,
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
         **extra,
     }
     resp = client.post("/api/v1/auth/register", json=payload)
@@ -71,6 +79,7 @@ def register(client: TestClient, username="alice", email=None, **extra):
     return resp.json()
 
 
+<<<<<<< HEAD
 def make_admin(client: TestClient, db_session, username="root"):
     """Create a user and promote them to admin directly (operator-level action)."""
     from app.models import User
@@ -83,6 +92,8 @@ def make_admin(client: TestClient, db_session, username="root"):
     return data
 
 
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
 def auth_header(token: str) -> dict:
     return {"Authorization": f"Bearer {token}"}
 

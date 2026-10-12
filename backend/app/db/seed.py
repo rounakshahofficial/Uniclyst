@@ -332,8 +332,11 @@ def seed(db: Session) -> None:
              goals="Join a CTF team and meet collaborators from other colleges."),
         User(username="reviewer", email="reviewer@demo.uniclyst.local", password_hash=pw,
              full_name="Platform Reviewer", role="reviewer"),
+<<<<<<< HEAD
         User(username="admin", email="admin@demo.uniclyst.local", password_hash=pw,
              full_name="Platform Admin", role="admin"),
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     ]
     db.add_all(users)
     db.flush()

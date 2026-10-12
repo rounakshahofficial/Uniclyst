@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """Authentication and authorization tests.
 
 Includes the security regression tests for the registration role-escalation
@@ -5,12 +6,20 @@ vulnerability: public registration must NEVER grant reviewer/admin privileges.
 """
 
 from tests.conftest import auth_header, make_admin, make_college, register
+=======
+"""Authentication and authorization tests."""
+
+from tests.conftest import auth_header, register
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
 
 
 def test_register_and_me(client):
     data = register(client, "alice")
     assert data["user"]["username"] == "alice"
+<<<<<<< HEAD
     assert data["user"]["role"] == "student"
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     assert data["access_token"]
     resp = client.get("/api/v1/users/me", headers=auth_header(data["access_token"]))
     assert resp.status_code == 200
@@ -26,6 +35,10 @@ def test_register_duplicate_username(client):
             "email": "other@example.com",
             "password": "supersecret1",
             "full_name": "Alice Two",
+<<<<<<< HEAD
+=======
+            "role": "student",
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
         },
     )
     assert resp.status_code == 409
@@ -40,12 +53,17 @@ def test_register_validates_password_length(client):
             "email": "bob@example.com",
             "password": "short",
             "full_name": "Bob",
+<<<<<<< HEAD
+=======
+            "role": "student",
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
         },
     )
     assert resp.status_code == 422
     assert resp.json()["error"]["code"] == "validation_error"
 
 
+<<<<<<< HEAD
 # ---------------------------------------------------------------------------
 # SECURITY: registration role-escalation regression tests
 # ---------------------------------------------------------------------------
@@ -131,6 +149,8 @@ def test_only_admin_can_assign_roles(client, db_session):
     assert resp.json()["role"] == "reviewer"
 
 
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
 def test_login_wrong_password(client):
     register(client, "alice")
     resp = client.post(
@@ -153,11 +173,29 @@ def test_logout_revokes_token(client):
     assert client.get("/api/v1/users/me", headers=headers).status_code == 401
 
 
+<<<<<<< HEAD
 def test_college_creation_open_to_authenticated_users(client):
     student = register(client, "sam")
     resp = client.post(
+=======
+def test_reviewer_role_required_for_verification(client):
+    student = register(client, "sam", role="student")
+    college = client.post(
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
         "/api/v1/colleges",
         json={"name": "X College", "short_name": "XC", "city": "Delhi"},
         headers=auth_header(student["access_token"]),
     )
+<<<<<<< HEAD
     assert resp.status_code == 201
+=======
+    assert college.status_code == 403  # students cannot create colleges
+
+    organizer = register(client, "olivia", role="organizer")
+    college = client.post(
+        "/api/v1/colleges",
+        json={"name": "X College", "short_name": "XC", "city": "Delhi"},
+        headers=auth_header(organizer["access_token"]),
+    )
+    assert college.status_code == 201
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647

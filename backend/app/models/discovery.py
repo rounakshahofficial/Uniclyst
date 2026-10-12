@@ -58,9 +58,12 @@ class DiscoverySource(Base):
     review_note = Column(Text, default="")
     # scout (TinyFish) | seed (demo corpus) | manual
     origin = Column(String(20), default="scout")
+<<<<<<< HEAD
     # Normalized candidate record extracted from the source, kept until a
     # reviewer imports/corrects it. Never treated as automatically true.
     extracted = Column(JSON, default=dict)
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
 
     job = relationship("DiscoveryJob", back_populates="sources")
     community = relationship("Community", back_populates="sources")

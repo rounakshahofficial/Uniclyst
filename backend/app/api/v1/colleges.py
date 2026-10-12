@@ -5,7 +5,11 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from ...core.errors import AppError
+<<<<<<< HEAD
 from ...core.security import get_current_user, get_optional_user
+=======
+from ...core.security import get_optional_user, require_role
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
 from ...db.session import get_db
 from ...models import College, Community, User
 from ...schemas import CollegeCreate, CollegeOut, Page, make_page
@@ -50,6 +54,7 @@ def list_colleges(
 @router.post("", response_model=CollegeOut, status_code=201)
 def create_college(
     req: CollegeCreate,
+<<<<<<< HEAD
     _user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -58,6 +63,11 @@ def create_college(
     Colleges are not trust-bearing records — community verification is.
     Uniqueness on `short_name` prevents duplicates.
     """
+=======
+    _user: User = Depends(require_role("organizer", "reviewer", "admin")),
+    db: Session = Depends(get_db),
+):
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     existing = db.scalars(
         select(College).where(func.lower(College.short_name) == req.short_name.lower())
     ).first()
