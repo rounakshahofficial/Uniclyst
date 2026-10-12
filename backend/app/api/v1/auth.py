@@ -24,6 +24,14 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 def register(req: RegisterRequest, db: Session = Depends(get_db)):
+<<<<<<< HEAD
+    """Public registration — always creates a `student` account.
+
+    Role escalation is impossible here: the schema forbids a `role` field
+    (see schemas/auth.py), and `user.role` is hardcoded to "student".
+    """
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     existing = db.scalars(
         select(User).where((User.username == req.username) | (User.email == req.email))
     ).first()
@@ -37,7 +45,11 @@ def register(req: RegisterRequest, db: Session = Depends(get_db)):
         email=req.email,
         password_hash=hash_password(req.password),
         full_name=req.full_name,
+<<<<<<< HEAD
+        role="student",  # SECURITY: never taken from client input
+=======
         role=req.role,
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
         college_id=req.college_id,
     )
     db.add(user)

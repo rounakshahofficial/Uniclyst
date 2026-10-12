@@ -1,16 +1,34 @@
+<<<<<<< HEAD
+# Local development / demo stack.
+# Secrets come from the environment (.env) — nothing sensitive is hardcoded.
+# Copy .env.example → .env first. In production use your platform's secret
+# manager and set AUTO_CREATE_TABLES=0 AUTO_SEED=0 (run migrations instead).
+
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
 services:
   db:
     image: postgres:16-alpine
     environment:
+<<<<<<< HEAD
+      POSTGRES_USER: ${POSTGRES_USER:-uniclyst}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-uniclyst}
+=======
       POSTGRES_USER: uniclyst
       POSTGRES_PASSWORD: uniclyst
       POSTGRES_DB: uniclyst
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
+<<<<<<< HEAD
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-uniclyst}"]
+=======
       test: ["CMD-SHELL", "pg_isready -U uniclyst"]
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
       interval: 5s
       timeout: 5s
       retries: 10
@@ -18,12 +36,24 @@ services:
   api:
     build: ./backend
     environment:
+<<<<<<< HEAD
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-uniclyst}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/${POSTGRES_DB:-uniclyst}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+      # Migrations-first posture in containerized deployments:
+      AUTO_CREATE_TABLES: ${AUTO_CREATE_TABLES:-0}
+      # Demo seed data is OFF unless you explicitly opt in:
+      AUTO_SEED: ${AUTO_SEED:-0}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-}
+      TINYFISH_API_KEY: ${TINYFISH_API_KEY:-}
+=======
       DATABASE_URL: postgresql+psycopg://uniclyst:uniclyst@db:5432/uniclyst
       JWT_SECRET: change-me-in-production-use-long-random-string
       CORS_ORIGINS: http://localhost:5173
       AUTO_CREATE_TABLES: "1"
       AUTO_SEED: "1"
       # TINYFISH_API_KEY: sk-tinyfish-...   # enable live Community Scout
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     ports:
       - "8000:8000"
     depends_on:

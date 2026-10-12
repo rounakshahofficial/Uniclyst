@@ -97,6 +97,10 @@ class DiscoverySourceOut(BaseModel):
     confidence: float
     review_note: str
     origin: str
+<<<<<<< HEAD
+    extracted: dict = {}
+=======
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
 
 
 class ProjectOut(BaseModel):

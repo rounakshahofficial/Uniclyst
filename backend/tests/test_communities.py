@@ -4,7 +4,11 @@ from tests.conftest import auth_header, make_college, make_community, register
 
 
 def _setup(client):
+<<<<<<< HEAD
+    user = register(client, "olivia")
+=======
     user = register(client, "olivia", role="organizer")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     college = make_college(client, user["access_token"])
     return user, college
 
@@ -64,7 +68,11 @@ def test_update_permissions(client):
     owner, college = _setup(client)
     community = make_community(client, owner["access_token"], college["id"])
 
+<<<<<<< HEAD
+    outsider = register(client, "eve")
+=======
     outsider = register(client, "eve", role="student")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     resp = client.patch(
         f"/api/v1/communities/{community['id']}",
         json={"description": "hacked"},
@@ -81,7 +89,11 @@ def test_update_permissions(client):
     assert resp.json()["description"] == "new description"
 
 
+<<<<<<< HEAD
+def test_only_reviewer_can_set_verification(client, db_session):
+=======
 def test_only_reviewer_can_set_verification(client):
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     owner, college = _setup(client)
     community = make_community(client, owner["access_token"], college["id"])
 
@@ -92,7 +104,20 @@ def test_only_reviewer_can_set_verification(client):
     )
     assert resp.status_code == 403
 
+<<<<<<< HEAD
+    # Reviewer role is granted ONLY by an admin (see test_auth.py)
+    from tests.conftest import make_admin
+
+    admin = make_admin(client, db_session, "root")
+    reviewer = register(client, "ravi")
+    client.post(
+        f"/api/v1/admin/users/{reviewer['user']['id']}/role",
+        json={"role": "reviewer"},
+        headers=auth_header(admin["access_token"]),
+    )
+=======
     reviewer = register(client, "ravi", role="reviewer")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     resp = client.patch(
         f"/api/v1/communities/{community['id']}",
         json={"verification_status": "verified"},
@@ -106,7 +131,11 @@ def test_delete_permissions(client):
     owner, college = _setup(client)
     community = make_community(client, owner["access_token"], college["id"])
 
+<<<<<<< HEAD
+    outsider = register(client, "mallory")
+=======
     outsider = register(client, "mallory", role="student")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     resp = client.delete(
         f"/api/v1/communities/{community['id']}",
         headers=auth_header(outsider["access_token"]),
@@ -124,7 +153,11 @@ def test_delete_permissions(client):
 def test_join_leave_and_saved(client):
     owner, college = _setup(client)
     community = make_community(client, owner["access_token"], college["id"])
+<<<<<<< HEAD
+    member = register(client, "mia")
+=======
     member = register(client, "mia", role="student")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     headers = auth_header(member["access_token"])
 
     assert client.post(f"/api/v1/communities/{community['id']}/join", headers=headers).json()["joined"]
@@ -147,7 +180,11 @@ def test_events_created_by_organizer_only(client):
     owner, college = _setup(client)
     community = make_community(client, owner["access_token"], college["id"])
 
+<<<<<<< HEAD
+    outsider = register(client, "noah")
+=======
     outsider = register(client, "noah", role="student")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     resp = client.post(
         "/api/v1/events",
         json={"community_id": community["id"], "name": "Sneaky Fest", "starts_at": "2027-01-01T10:00:00Z"},
@@ -167,7 +204,11 @@ def test_events_created_by_organizer_only(client):
 
 
 def test_onboarding_update(client):
+<<<<<<< HEAD
+    user = register(client, "zoe")
+=======
     user = register(client, "zoe", role="student")
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
     headers = auth_header(user["access_token"])
     resp = client.patch(
         "/api/v1/users/me",

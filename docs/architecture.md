@@ -108,8 +108,16 @@ Collection endpoints paginate with `{items, total, page, page_size, pages}`.
 | Phase | Scope | Status |
 | --- | --- | --- |
 | 1 | Repo, FastAPI, DB models, Alembic, auth, core community APIs, tests | **done** |
+<<<<<<< HEAD
+| 2 | Matching engine (`services/matching.py`, `GET /api/v1/matches`) + tests | **done** |
+| 3 | TinyFish discovery pipeline (`services/tinyfish_scout.py`), review & import | **done** |
+| 4 | Collaboration requests → workspace → milestones + tests | **done** |
+| 5 | React + Vite + TS + Tailwind frontend, wired to live APIs | **done** |
+| 6 | Security hardening (registration role-escalation fix, admin role grants) | **done** |
+=======
 | 2 | React + Vite + TS + Tailwind frontend | planned |
 | 3 | Explainable matching engine + tests | planned |
 | 4 | TinyFish discovery pipeline + review UI | planned |
 | 5 | Collaboration requests → workspaces → milestones | planned |
 | 6 | Full test pass, deployment, demo script | planned |
+>>>>>>> ed8fc0d44e0ce0f77ef9b664831c8d4dfa914647
