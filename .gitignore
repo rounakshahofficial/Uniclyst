@@ -1,0 +1,38 @@
+# Secrets — never commit
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / frontend
+node_modules/
+dist/
+.vite/
+*.local
+
+# Databases & local state
+*.db
+*.sqlite3
+
+# Alembic scratch
+alembic_autogen.db
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Coverage / build
+coverage/
+htmlcov/
+build/
